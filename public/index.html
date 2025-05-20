@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image to Quote</title>
+</head>
+<body>
+  <h2>Describe an Image</h2>
+  <input type="text" id="imageUrl" placeholder="Enter image URL" style="width: 300px;">
+  <button onclick="describeImage()">Describe</button>
+  <p id="result"></p>
+<script>
+ async function describeImage() {
+  const imageUrl = document.getElementById("imageUrl").value;
+  const res = await fetch("/describe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ imageUrl: imageUrl })
+  });
+
+  const data = await res.json();
+
+  // If your backend sends `description` or `caption`, show it:
+  document.getElementById("result").innerText = document.getElementById("result").innerText = 
+  typeof data.description === "string" ? data.description : JSON.stringify(data.description, null, 2);
+
+}
+
+</script>
+</body>
+</html>
